@@ -15,6 +15,7 @@ class Menu:
         self.legend = True
         self.average = True
         self.grid = True
+        self.range = [0, -1]
 
         self.buttons = [
             Button((100, 50), "Aksetitler", colors["Black"], 24, None, (110, 110), colors["Blue"], "axis_title", True),
@@ -24,7 +25,10 @@ class Menu:
             Button((650, 425), "Plott", colors["Black"], 24, None, (250, 110), colors["Green"], "plot", False)
         ]
 
-        self.slider = Slider(300, 20, 300, 400, colors["Red"], ["test", "test", "test"])
+        self.sliders = [
+            Slider(300, 20, 300, 500, colors["Red"], [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]),
+            Slider(300,20, 300, 400, colors["Red"], [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026])
+        ]
 
     def handle_events(self, events):
         for event in events:
@@ -50,14 +54,20 @@ class Menu:
                         elif button.returnValue == "plot":
                             self.plot(self.axis_title, self.legend, self.average, self.grid)
 
-        self.slider.drag_slider()
+        for slider in self.sliders:
+            slider.drag_slider()
+
+        self.range = [self.sliders[1].selected, self.sliders[0].selected]
+        if self.range[0] >= self.range[1]:
+            print("start kan ikke være større enn slutt")
     
     def draw(self, screen):
         screen.fill((200, 200, 200))
         for button in self.buttons:
             button.draw(screen)
-        
-        self.slider.draw(screen)
+
+        for slider in self.sliders:
+            slider.draw(screen)
 
     def plot(self, axis_title, legend, average, grid):
         print("plotting graph")
