@@ -60,6 +60,7 @@ class Menu:
         self.range = [self.sliders[1].selected, self.sliders[0].selected]
         if self.range[0] >= self.range[1]:
             print("start kan ikke være større enn slutt")
+            print(self.range)
     
     def draw(self, screen):
         screen.fill((200, 200, 200))
