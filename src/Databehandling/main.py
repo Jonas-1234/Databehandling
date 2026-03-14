@@ -1,7 +1,7 @@
 # main.py
 
 import pygame as pg
-from states.state import Menu
+from states import Menu
 from settings import *
 
 class App:

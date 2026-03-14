@@ -4,9 +4,10 @@ import pygame as pg
 import sys
 import matplotlib.pyplot as plt
 from utilities import Button
+from utilities import Slider
 from settings import colors
 
-class Menu():
+class Menu:
     """ Menu
     """
     def __init__(self):
@@ -22,6 +23,8 @@ class Menu():
             Button((100, 425), "Grid", colors["Black"], 24, None, (110, 110), colors["Blue"], "grid", True),
             Button((650, 425), "Plott", colors["Black"], 24, None, (250, 110), colors["Green"], "plot", False)
         ]
+
+        self.slider = Slider(300, 20, 300, 400, colors["Red"], ["test", "test", "test"])
 
     def handle_events(self, events):
         for event in events:
@@ -46,11 +49,15 @@ class Menu():
                             print(self.grid)
                         elif button.returnValue == "plot":
                             self.plot(self.axis_title, self.legend, self.average, self.grid)
+
+        self.slider.drag_slider()
     
     def draw(self, screen):
         screen.fill((200, 200, 200))
         for button in self.buttons:
             button.draw(screen)
+        
+        self.slider.draw(screen)
 
     def plot(self, axis_title, legend, average, grid):
         print("plotting graph")
